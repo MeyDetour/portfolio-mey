@@ -14,10 +14,13 @@ SYMFONY_CONSOLE = symfony console
 
 init: ## Initialize project
 	$(MAKE) db-create
-
+ip:
+	hostname -I
 
 
 ## -------- SYMFONY COMMAND --------
+compile :
+	$(SYMFONY_CONSOLE) asset-map:compile
 entity:
 	$(SYMFONY_CONSOLE) make:entity
 controller:
@@ -36,6 +39,10 @@ reload-migrations:
 
 cc:
 	$(SYMFONY_CONSOLE) cache:clear
+user:
+	$(SYMFONY_CONSOLE) make:user
+	$(SYMFONY_CONSOLE) make:registration-form
+	$(SYMFONY_CONSOLE) make:auth
 
 ## -------- fixtures --------
 load-fixtures:
@@ -52,6 +59,7 @@ liip-cache:
 
 
 ## -------- JWT --------
+jwt-key:
 	$(SYMFONY_CONSOLE) lexik:jwt:generate-keypair
 
 ## -------- database --------
@@ -82,8 +90,10 @@ init-on-server:
 	$(MAKE) db-create
 	$(MAKE) reload-migrations
 	$(MAKE) save
+	$(MAKE) apache-pack
 
-
+apache-pack:
+	$(COMPOSER) require symfony/apache-pack
 ## -------- Get PHp 8.3 on symfony --------
 php-version:
 	sudo update-alternatives --install /usr/bin/php php /usr/bin/php8.3 1
@@ -106,19 +116,21 @@ install-composer:
 
 install-webpack:
 	$(COMPOSER) require symfony/webpack-encore-bundle
-	sudo npm install -g yarn
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-	source ~/.nvm/nvm.sh
-	nvm install 16.10.0
-	nvm use 16.10.0
+	sudo apt install npm
+	npm install bootstrap --save-dev
 	#import 'bootstrap/dist/css/bootstrap.min.css'; {% block stylesheets %} {{ encore_entry_link_tags('app') }} {% endblock %}   {% block javascripts %}{{ encore_entry_script_tags('app') }}  {% endblock %}
 
+	npm install bootstrap --save-dev
+	npm install jquery @popperjs/core --save-dev
+	npm run build
+	npm run dev
 install-vich:
 	$(COMPOSER) require vich/uploader-bundle
 install-liip:
 	$(COMPOSER) require liip/imagine-bundle
 
-
+install-dropzone:
+	$(COMPOSER) require symfony/ux-dropzone
 
 # liip_imagine:
 #     driver: "gd"
@@ -137,4 +149,5 @@ install-liip:
 #             quality: 80
 #             filters:
 #                 thumbnail: { size: [60, 60], mode: outbound }
+
 

@@ -36,7 +36,7 @@ class ProjectController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($projet);
             $manager->flush();
-            return $this->redirectToRoute('project_add_image',['id'=>$projet]);
+            return $this->redirectToRoute('project_add_image',['id'=>$projet->getId()]);
         }
         return $this->render('project/add.html.twig', [
             'form'=> $form->createView()

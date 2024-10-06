@@ -9,7 +9,7 @@ liip_imagine:
         project:
             quality: 45
             filters:
-                thumbnail: { size: [900, 400], mode: outbound }
+                thumbnail: { size: [900, 453], mode: outbound }
 
         logo:
             quality: 80

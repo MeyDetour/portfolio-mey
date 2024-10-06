@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
 use App\Repository\CertificationRepository;
 use App\Repository\LastProjectRepository;
 use App\Repository\ProjectRepository;
@@ -20,14 +21,14 @@ class ApiController extends AbstractController
     private $logoFilter = 'logo';
     private $iconeFilter = 'icone';
 
-    #[Route('/techs', name: 'get_technology',methods:'get')]
+    #[Route('/techs', name: 'get_technology', methods: 'get')]
     public function getTechnologies(TechnologyRepository $technologyRepository, ImageService $imageService): Response
     {
         $data = [];
         foreach ($technologyRepository->findAll() as $tech) {
             $imageUrl = null;
             if ($tech->getImage()) {
-                $imageUrl = $imageService->getImageUrl($tech->getImage(),$this->logoFilter);
+                $imageUrl = $imageService->getImageUrl($tech->getImage(), $this->logoFilter);
 
             }
             $data[] = [
@@ -38,7 +39,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/texts', name: 'get_texts',methods:'get')]
+    #[Route('/texts', name: 'get_texts', methods: 'get')]
     public function getTextes(TextRepository $repository): Response
     {
         $texts = $repository->findAll();
@@ -72,7 +73,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/lastProject', name: 'get_last_project',methods:'get')]
+    #[Route('/lastProject', name: 'get_last_project', methods: 'get')]
     public function getLastProject(LastProjectRepository $repository): Response
     {
         $lasts = $repository->findAll();
@@ -97,14 +98,14 @@ class ApiController extends AbstractController
         );
     }
 
-    #[Route('/projects', name: 'get_projects',methods:'get')]
-    public function getProject(ProjectRepository $repository, ImageService $imageService): Response
+    #[Route('/projects', name: 'get_projects', methods: 'get')]
+    public function getProjects(ProjectRepository $repository, ImageService $imageService): Response
     {
         $data = [];
         foreach ($repository->findAll() as $datum) {
             $imageUrl = null;
             if ($datum->getImage()) {
-                $imageUrl = $imageService->getImageUrl($datum->getImage(),$this->projectFilter);
+                $imageUrl = $imageService->getImageUrl($datum->getImage(), $this->projectFilter);
 
             }
 
@@ -123,7 +124,32 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/qualities', name: 'get_qualities',methods:'get')]
+    #[Route('/project/{id}', name: 'get_project', methods: 'get')]
+    public function getProject(ProjectRepository $repository, ImageService $imageService, Project $project): Response
+    {
+
+        $imageUrl = null;
+        if ($project->getImage()) {
+            $imageUrl = $imageService->getImageUrl($project->getImage(), $this->projectFilter);
+
+        }
+
+        $data = [
+            "id" => $project->getId(),
+            "name" => $project->getName(),
+            "description" => $project->getDescription(),
+            "githubLink" => $project->getGithubLink(),
+            "link" => $project->getLink(),
+            "image" => $imageUrl,
+            "step1" => $project->getStep1(),
+            "step2" => $project->getStep2(),
+            "step3" => $project->getStep3(),
+        ];
+
+        return $this->json($data);
+    }
+
+    #[Route('/qualities', name: 'get_qualities', methods: 'get')]
     public function getQualities(QualityRepository $repository): Response
     {
         $data = [];
@@ -136,14 +162,14 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/medias', name: 'get_medias',methods:'get')]
+    #[Route('/medias', name: 'get_medias', methods: 'get')]
     public function getMedias(SocialMediaRepository $repository, ImageService $imageService): Response
     {
         $data = [];
         foreach ($repository->findAll() as $datum) {
             $imageUrl = null;
             if ($datum->getImage()) {
-                $imageUrl = $imageService->getImageUrl($datum->getImage(),$this->iconeFilter);
+                $imageUrl = $imageService->getImageUrl($datum->getImage(), $this->iconeFilter);
 
             }
             $data[] = [

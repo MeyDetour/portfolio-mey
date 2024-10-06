@@ -20,7 +20,7 @@ class ApiController extends AbstractController
     private $logoFilter = 'logo';
     private $iconeFilter = 'icone';
 
-    #[Route('/techs', name: 'get_technology')]
+    #[Route('/techs', name: 'get_technology',methods:'get')]
     public function getTechnologies(TechnologyRepository $technologyRepository, ImageService $imageService): Response
     {
         $data = [];
@@ -38,7 +38,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/texts', name: 'get_texts')]
+    #[Route('/texts', name: 'get_texts',methods:'get')]
     public function getTextes(TextRepository $repository): Response
     {
         $texts = $repository->findAll();
@@ -72,7 +72,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/lastProject', name: 'get_last_project')]
+    #[Route('/lastProject', name: 'get_last_project',methods:'get')]
     public function getLastProject(LastProjectRepository $repository): Response
     {
         $lasts = $repository->findAll();
@@ -97,7 +97,7 @@ class ApiController extends AbstractController
         );
     }
 
-    #[Route('/projects', name: 'get_projects')]
+    #[Route('/projects', name: 'get_projects',methods:'get')]
     public function getProject(ProjectRepository $repository, ImageService $imageService): Response
     {
         $data = [];
@@ -111,6 +111,7 @@ class ApiController extends AbstractController
             $data[] = [
                 "name" => $datum->getName(),
                 "description" => $datum->getDescription(),
+                "githubLink" => $datum->getGithubLink(),
                 "link" => $datum->getLink(),
                 "image" => $imageUrl,
                 "step1" => $datum->getStep1(),
@@ -121,7 +122,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/qualities', name: 'get_qualities')]
+    #[Route('/qualities', name: 'get_qualities',methods:'get')]
     public function getQualities(QualityRepository $repository): Response
     {
         $data = [];
@@ -134,7 +135,7 @@ class ApiController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/medias', name: 'get_medias')]
+    #[Route('/medias', name: 'get_medias',methods:'get')]
     public function getMedias(SocialMediaRepository $repository, ImageService $imageService): Response
     {
         $data = [];

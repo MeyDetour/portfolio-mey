@@ -36,6 +36,9 @@ class Project
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $step3 = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $githubLink = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +124,18 @@ class Project
     public function setStep3(?string $step3): static
     {
         $this->step3 = $step3;
+
+        return $this;
+    }
+
+    public function getGithubLink(): ?string
+    {
+        return $this->githubLink;
+    }
+
+    public function setGithubLink(?string $githubLink): static
+    {
+        $this->githubLink = $githubLink;
 
         return $this;
     }

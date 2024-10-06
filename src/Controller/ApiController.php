@@ -109,6 +109,7 @@ class ApiController extends AbstractController
             }
 
             $data[] = [
+                "id" => $datum->getId(),
                 "name" => $datum->getName(),
                 "description" => $datum->getDescription(),
                 "githubLink" => $datum->getGithubLink(),

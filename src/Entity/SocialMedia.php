@@ -21,6 +21,9 @@ class SocialMedia
     #[ORM\Column(type: Types::TEXT)]
     private ?string $link = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $alt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class SocialMedia
     public function setLink(string $link): static
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(?string $alt): static
+    {
+        $this->alt = $alt;
 
         return $this;
     }

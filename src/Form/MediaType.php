@@ -15,6 +15,7 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('link')
+            ->add('alt')
 
         ;
     }

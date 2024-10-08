@@ -174,6 +174,7 @@ class ApiController extends AbstractController
             }
             $data[] = [
                 "link" => $datum->getLink(),
+                "alt" => $datum->getAlt(),
                 "image" => $imageUrl,
             ];
         }

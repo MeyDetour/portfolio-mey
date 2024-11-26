@@ -103,23 +103,27 @@ class ApiController extends AbstractController
     {
         $data = [];
         foreach ($repository->findAll() as $datum) {
-            $imageUrl = null;
-            if ($datum->getImage()) {
-                $imageUrl = $imageService->getImageUrl($datum->getImage(), $this->projectFilter);
+            if ($datum->isVisible()){
+                $imageUrl = null;
+                if ($datum->getImage()) {
+                    $imageUrl = $imageService->getImageUrl($datum->getImage(), $this->projectFilter);
 
+                }
+
+                $data[] = [
+                    "id" => $datum->getId(),
+                    "name" => $datum->getName(),
+                    "description" => $datum->getDescription(),
+                    "githubLink" => $datum->getGithubLink(),
+                    "link" => $datum->getLink(),
+                    "image" => $imageUrl,
+                    "step1" => $datum->getStep1(),
+                    "step2" => $datum->getStep2(),
+                    "step3" => $datum->getStep3(),
+                ];
             }
 
-            $data[] = [
-                "id" => $datum->getId(),
-                "name" => $datum->getName(),
-                "description" => $datum->getDescription(),
-                "githubLink" => $datum->getGithubLink(),
-                "link" => $datum->getLink(),
-                "image" => $imageUrl,
-                "step1" => $datum->getStep1(),
-                "step2" => $datum->getStep2(),
-                "step3" => $datum->getStep3(),
-            ];
+
         }
         return $this->json($data);
     }

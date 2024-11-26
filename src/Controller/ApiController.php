@@ -137,6 +137,7 @@ class ApiController extends AbstractController
         $data = [
             "id" => $project->getId(),
             "name" => $project->getName(),
+            "isVisible" => $project->isVisible(),
             "description" => $project->getDescription(),
             "githubLink" => $project->getGithubLink(),
             "link" => $project->getLink(),

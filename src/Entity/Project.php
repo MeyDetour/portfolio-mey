@@ -39,6 +39,9 @@ class Project
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $githubLink = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isVisible = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,18 @@ class Project
     public function setGithubLink(?string $githubLink): static
     {
         $this->githubLink = $githubLink;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setVisible(?bool $isVisible): static
+    {
+        $this->isVisible = $isVisible;
 
         return $this;
     }

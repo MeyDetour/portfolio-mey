@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Entity\Project;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,10 @@ class ProjetType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('isVisible',)
+            ->add('isVisible',CheckboxType::class,[
+                'required'=>false,
+                'label'=>'visible ?'
+            ])
             ->add('description')
             ->add('githubLink')
             ->add('link')

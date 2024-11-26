@@ -7,7 +7,7 @@
     <div class="d-flex flex-row my-5 ">
         {% for proj in projets %}
             <div class="mx-2 w-25 border border-secoundary  d-flex flex-column align-items-center">
-                <span class="fs-2">{{ proj.name }}</span>
+                <span class="fs-2">{{ proj.name }}{{ proj.isVisible ? "visible":"non visible" }} </span>
                 <p>{{ proj.description }}</p>
              {% if proj.image is not null %}
                 <img class="w-50" src="{{ vich_uploader_asset(proj.image) }}" alt="{{ proj.image.imageName }}">

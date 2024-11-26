@@ -25,15 +25,17 @@ class ProjetType extends AbstractType
             ->add('link')
             ->add('step1')
             ->add('step2')
-            ->add('step3')
+            ->add('step3');
 
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Project::class,
+            'mapped' => false, // Désactive le mapping automatique pour certaines propriétés
+
         ]);
     }
 }

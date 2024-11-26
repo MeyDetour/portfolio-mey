@@ -15,7 +15,7 @@ class ProjetType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('isVisible')
+            ->add('visible')
             ->add('description')
             ->add('githubLink')
             ->add('link')

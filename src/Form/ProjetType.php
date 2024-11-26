@@ -18,7 +18,8 @@ class ProjetType extends AbstractType
             ->add('name')
             ->add('isVisible',CheckboxType::class,[
                 'required'=>false,
-                'label'=>'visible ?'
+                'label'=>'visible ?',
+                "data"=>false,
             ])
             ->add('description')
             ->add('githubLink')

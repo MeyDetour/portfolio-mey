@@ -132,7 +132,7 @@ class ApiController extends AbstractController
     public function getProject(ProjectRepository $repository, ImageService $imageService, Project $project): Response
     {
         if ($project->isVisible() == false ){
-            return $this->json(['message'=>"unvisible project",404]);
+            return $this->json(['message'=>"unvisible project"],400);
         }
 
         $imageUrl = null;

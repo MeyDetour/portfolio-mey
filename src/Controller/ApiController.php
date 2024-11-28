@@ -131,6 +131,9 @@ class ApiController extends AbstractController
     #[Route('/project/{id}', name: 'get_project', methods: 'get')]
     public function getProject(ProjectRepository $repository, ImageService $imageService, Project $project): Response
     {
+        if ($project->isVisible() == false ){
+            return $this->json(['message'=>"unvisible project",404]);
+        }
 
         $imageUrl = null;
         if ($project->getImage()) {
